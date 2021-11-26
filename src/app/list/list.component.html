@@ -1,0 +1,33 @@
+<mat-card class="card" *ngIf="currentUser">
+  <mat-card-title>Add new note</mat-card-title>
+  <mat-form-field>
+    <textarea matInput
+        placeholder="Note text" 
+        [(ngModel)]="newNote">
+    </textarea>
+  </mat-form-field>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="createNote()">Add</button>
+    <button mat-button (click)="newNote = ''">Clear</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card class="card">
+  <mat-card-title>List</mat-card-title>
+  <mat-list>
+    <mat-list-item *ngFor="let note of notes; let i = index;" [class.complete]="note.completed">
+        <mat-checkbox [checked]="note.completed">
+            <span *ngIf="!note.edit">{{note.text}}</span>
+            <input matInput
+              *ngIf="note.edit"
+              [placeholder]="note.text" 
+              [(ngModel)]="note.text"/>
+        </mat-checkbox>
+        <span class="spacer"></span>
+        <div *ngIf="currentUser">
+            <button mat-icon-button (click)="editNote(note);note.edit = !note.edit"><mat-icon>{{note.edit ? 'save' : 'edit'}}</mat-icon></button>
+            <button mat-icon-button (click)="deleteNote(note, i)"><mat-icon>delete</mat-icon></button>
+        </div>
+    </mat-list-item>
+    <span *ngIf="!notes?.length">No Data</span>
+   </mat-list>
+</mat-card>

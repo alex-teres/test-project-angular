@@ -1,0 +1,8 @@
+<mat-toolbar>
+  <span>{{currentUser?.email}}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button routerLink="/list">
+    <mat-icon>list</mat-icon>
+  </button>
+  <button mat-icon-button (click)="currentUser ? logout() : toLogin()"><mat-icon>{{currentUser ? 'logout': 'login'}}</mat-icon></button>
+</mat-toolbar>
